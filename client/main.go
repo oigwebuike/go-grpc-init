@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	pb "github.com/oigwebuike/go-grpc-init/proto"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -20,11 +22,15 @@ func main() {
 
 	defer conn.Close()
 
-	// client := pb.NewGreetServiceClient(conn)
+	client := pb.NewGreetServiceClient(conn)
 
-	// names := &pb.NamesList{
-	// 	Name: []string{"Onyeka", "Daniel", "John", "Dan"},
-	// }
+	names := &pb.NamesList{
+		Names: []string{"Onyeka", "Daniel", "John", "Dan"},
+	}
 
 	// callSayHello(client)
+
+	// callSayHelloServerStream(client, names)
+	// callSayHelloClientStream(client, names)
+	callHelloBidirectionalStream(client, names)
 }
